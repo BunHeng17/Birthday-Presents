@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Vann Chansreypoch!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        /* Loading Page */
+        #loadingPage {
+            flex-direction: column;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            position: relative;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .loading-container {
+            text-align: center;
+            z-index: 10;
+        }
+
+        .loading-text {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px auto;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            width: 0%;
+            transition: width 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .greeting {
+            font-size: 1.5rem;
+            color: white;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Login Page */
+        #loginPage {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-card {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.6s ease-out;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .error-msg {
+            color: #f5576c;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0;
+        }
+
+        .error-msg.show {
+            opacity: 1;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Birthday Page */
+        #birthdayPage {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%23b794f6;stop-opacity:1" /><stop offset="100%" style="stop-color:%23c084fc;stop-opacity:1" /></linearGradient></defs><rect width="1200" height="800" fill="url(%23bg)"/></svg>') center/cover;
+            background-color: #b794f6;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .birthday-card {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: zoomIn 0.8s ease-out;
+            max-width: 600px;
+            position: relative;
+            margin: 20px;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotate(-5deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .birthday-card h1 {
+            color: #f5576c;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+
+        .birthday-card p {
+            color: #333;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .fun-btn {
+            display: block;
+            margin: 0 auto;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #333;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .fun-btn:hover {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .popup-text {
+            position: fixed;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            animation: popupFloat 2s ease-out forwards;
+            z-index: 1000;
+        }
+
+        @keyframes popupFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0.5);
+            }
+            50% {
+                transform: translateY(-100px) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) scale(0.8);
+            }
+        }
+
+        .balloon {
+            position: fixed;
+            bottom: -100px;
+            width: 50px;
+            height: 70px;
+            background: #ff69b4;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: floatUp 8s ease-in-out infinite;
+            box-shadow: inset -10px -10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            width: 2px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateX(-50%);
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: -100px;
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateX(30px) rotate(10deg);
+            }
+            100% {
+                bottom: 110vh;
+                transform: translateX(-20px) rotate(-5deg);
+                opacity: 0.8;
+            }
+        }
+
+        #birthdayPage .balloon {
+            animation: floatUp 10s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Page -->
+    <div id="loadingPage" class="page active">
+        <div class="loading-container">
+            <div class="loading-text">🎉 Loading Birthday Magic... 🎉</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+            <div class="greeting">Hope you have a great day!</div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="page">
+        <div class="login-card">
+            <h2>🎂 Birthday Login 🎂</h2>
+            <div class="input-group">
+                <label for="nameInput">Your Name:</label>
+                <input type="text" id="nameInput" placeholder="Enter your name">
+            </div>
+            <div class="input-group">
+                <label for="passwordInput">Password:</label>
+                <input type="password" id="passwordInput" placeholder="Enter password">
+            </div>
+            <button class="login-btn" onclick="login()">Login</button>
+            <div class="error-msg" id="errorMsg">Incorrect password! Try again 🎈</div>
+        </div>
+    </div>
+
+    <!-- Birthday Page -->
+    <div id="birthdayPage" class="page">
+        <div class="birthday-card">
+            <h1>Happy Birthday, Vann Chansreypoch 🎉</h1>
+            <p>
+                Wishing you a wonderful birthday filled with happiness and good moments. 
+                May the year ahead bring you good health, success, and positive experiences.
+                <br><br>
+                And since it's also the holiday season, Merry Christmas! 🎄 
+                May this Christmas bring you peace, warmth, and joy with the people around you.
+                <br><br>
+                All the best today and always ✨
+            </p>
+            <button class="fun-btn" onclick="celebrate()">🎊 Click to Celebrate! 🎊</button>
+        </div>
+    </div>
+
+    <script>
+        // Loading Page
+        let progress = 0;
+        const progressFill = document.getElementById('progressFill');
+        
+        // Create confetti
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDelay = Math.random() * 3 + 's';
+            confetti.style.background = ['#ffd700', '#ff69b4', '#87ceeb', '#98fb98'][Math.floor(Math.random() * 4)];
+            document.getElementById('loadingPage').appendChild(confetti);
+        }
+
+        const loadingInterval = setInterval(() => {
+            progress += 1;
+            progressFill.style.width = progress + '%';
+            progressFill.textContent = progress + '%';
+            
+            if (progress >= 100) {
+                clearInterval(loadingInterval);
+                setTimeout(() => {
+                    document.getElementById('loadingPage').classList.remove('active');
+                    document.getElementById('loginPage').classList.add('active');
+                }, 1000);
+            }
+        }, 30);
+
+        // Login Function
+        function login() {
+            const name = document.getElementById('nameInput').value;
+            const password = document.getElementById('passwordInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (!name) {
+                errorMsg.textContent = 'Please enter your name! 🎈';
+                errorMsg.classList.add('show');
+                setTimeout(() => errorMsg.classList.remove('show'), 2000);
+                return;
+            }
+
+            if (password !== '25122025') {
+                errorMsg.textContent = 'Incorrect password! Try again 🎈';
+                errorMsg.classList.add('show');
+                setTimeout(() => errorMsg.classList.remove('show'), 2000);
+                return;
+            }
+
+            document.getElementById('loginPage').classList.remove('active');
+            document.getElementById('birthdayPage').classList.add('active');
+            createBalloons();
+        }
+
+        // Enter key support
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') login();
+        });
+
+        // Celebrate Function
+        function celebrate() {
+            const colors = ['#ff69b4', '#ffd700', '#87ceeb', '#98fb98', '#ff6347'];
+            
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const popup = document.createElement('div');
+                    popup.className = 'popup-text';
+                    popup.textContent = '🎉 Happy Birthday to You! 🎉';
+                    popup.style.left = Math.random() * 80 + 10 + '%';
+                    popup.style.top = Math.random() * 80 + 10 + '%';
+                    popup.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    document.body.appendChild(popup);
+                    
+                    setTimeout(() => popup.remove(), 2000);
+                }, i * 200);
+            }
+        }
+
+        // Create floating balloons
+        function createBalloons() {
+            const colors = ['#ff69b4', '#ffd700', '#87ceeb', '#98fb98', '#ff6347', '#da70d6', '#20b2aa'];
+            
+            setInterval(() => {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = Math.random() * 95 + '%';
+                balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+                balloon.style.animationDelay = '0s';
+                balloon.style.animationDuration = (8 + Math.random() * 4) + 's';
+                balloon.style.width = (40 + Math.random() * 30) + 'px';
+                balloon.style.height = (60 + Math.random() * 40) + 'px';
+                document.getElementById('birthdayPage').appendChild(balloon);
+                
+                setTimeout(() => balloon.remove(), 12000);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
